@@ -1,6 +1,6 @@
 var saves = [
   {
-    name: "Sierpensky",
+    name: "Five",
     transforms: [
       {
         a: 0.4,
@@ -39,10 +39,13 @@ var saves = [
         b: 0,
         c: 0,
         d: 0.4,
-        e: 2,
-        f: 2
+        e: 1.5,
+        f: 1.5
       }
     ]
+  },
+  {
+    name: "Sierpensky"
   }
 ];
 
@@ -80,7 +83,7 @@ FractalImage.prototype.clear = function () {
     this.imgData.data[i + 2] = 0;
     this.imgData.data[i + 3] = 255;
   }
-  this.ctx.putImageData(this.imgData, 10, 10);
+  this.ctx.putImageData(this.imgData, 0, 0);
 };
 
 FractalImage.prototype.setPixel = function (x, y, color) {
@@ -90,7 +93,7 @@ FractalImage.prototype.setPixel = function (x, y, color) {
 };
 
 FractalImage.prototype.draw = function () {
-  this.ctx.putImageData(this.imgData, 10, 10);
+  this.ctx.putImageData(this.imgData, 0, 0);
 };
 
 FractalImage.prototype.render = function (transforms) {
@@ -128,7 +131,7 @@ FractalImage.prototype.render = function (transforms) {
   console.log(this.buckets);
 
   function renderPixels() {
-    for(var i = 0; i < 1000; i++) {
+    for(var i = 0; i < 100; i++) {
       var rnd = Math.random();
       var idx;
       for(var j = 0; j < self.buckets.length; j++) {
@@ -138,10 +141,10 @@ FractalImage.prototype.render = function (transforms) {
 
       self.x1 = transforms[idx].a * self.x1 + transforms[idx].b * self.y1 + transforms[idx].e;
       self.y1 = transforms[idx].c * self.x1 + transforms[idx].d * self.y1 + transforms[idx].f;
-      if(self.counter > 500) {
+      if(self.counter > 5000) {
         //console.log((x1 - xo) * sz, (y1 - yo) * sz);
         self.setPixel(Math.round((self.x1 - self.xo) * self.sz), Math.round((self.y1 - self.yo) * self.sz), self.colors[idx]);
-      } else if(self.counter == 500) {
+      } else if(self.counter == 5000) {
         var xs = self.xMax - self.xMin;
         var ys = self.yMax - self.yMin;
         self.xo = self.xMin;
