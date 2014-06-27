@@ -8,18 +8,27 @@
 </head>
 <body ng-controller="FractalsCtrl">
 <div class="row">
-  <div class="col-md-3 col-md-offset-6">
-    <select ng-model="transforms" ng-options="fractal.transforms as fractal.name for fractal in fractals" ng-change="selectFractal()"></select>
-  </div>
-  <div class="col-md-2">
-    <input type="checkbox" id="monochrome" ng-click="setMonochrome($event)"/><label for="monochrome">Monochrome</label>
-  </div>
-</div>
-<div class="row">
   <div class="col-md-5 col-md-offset-1">
     <canvas id="render" width="500" height="500"></canvas>
   </div>
   <div class="col-md-5">
+    <div class="row">
+      <div class="col-md-6">
+        <select ng-model="transforms" ng-options="fractal.transforms as fractal.name for fractal in fractals" ng-change="selectFractal()"></select>
+      </div>
+      <div class="col-md-6">
+        <input type="checkbox" id="monochrome" ng-click="setMonochrome($event)"/><label for="monochrome">Monochrome</label>
+      </div>
+    </div>
+    <div class="row">
+      <!--<div class="col-md-6">-->
+        <!--<select ng-model="transforms" ng-options="fractal.transforms as fractal.name for fractal in fractals" ng-change="selectFractal()"></select>-->
+      <!--</div>-->
+      <div class="col-md-6">
+        <label for="margin">Margin %</label><input type="text" id="margin" ng-model="margin" ng-change="updateMargin($event)"/>
+      </div>
+    </div>
+
     <table class="table table-bordered">
       <tr>
         <th class="color">&nbsp;</th>

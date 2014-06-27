@@ -1,4 +1,5 @@
 fractals.controller('FractalsCtrl', function ($scope, $http) {
+  $scope.margin = 5;
   $scope.fractals = [];
 
   $http.get('data/leo_lutz.json').success(function (data) {
@@ -23,4 +24,9 @@ fractals.controller('FractalsCtrl', function ($scope, $http) {
     fractal.setMonochrome($event.target.checked);
     if($scope.transforms) $scope.selectFractal();
   };
+
+  $scope.updateMargin = function ($event) {
+    fractal.margin = Number($scope.margin);
+    if($scope.transforms) $scope.selectFractal();
+  }
 });

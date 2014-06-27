@@ -1,6 +1,7 @@
 var FractalImage = function (width, height) {
   this.width = width;
   this.height = height;
+  this.margin = 5;
   this.colors = [
     new Color(255, 0, 0),
     new Color(0, 255, 0),
@@ -101,18 +102,18 @@ FractalImage.prototype.render = function (transforms) {
         if(rnd < self.buckets[j]) break;
       }
 
-      var tmpX, tmpY;
-      tmpX = transforms[idx].a * self.x1 + transforms[idx].b * self.y1 + transforms[idx].e;
-      tmpY = transforms[idx].c * self.x1 + transforms[idx].d * self.y1 + transforms[idx].f;
-      self.x1 = tmpX;
-      self.y1 = tmpY;
+      var x, y;
+      x = transforms[idx].a * self.x1 + transforms[idx].b * self.y1 + transforms[idx].e;
+      y = transforms[idx].c * self.x1 + transforms[idx].d * self.y1 + transforms[idx].f;
+      self.x1 = x;
+      self.y1 = y;
 
       if(self.counter > 5000) {
         //console.log((x1 - xo) * sz, (y1 - yo) * sz);
         if(self.monochrome) {
-          self.setPixel(Math.round((self.x1 - self.xo) * self.sz), Math.round((self.y1 - self.yo) * self.sz), new Color(255, 255, 255));
+          self.setPixel(Math.round((x - self.xo) * self.sz + self.xo2), Math.round((y - self.yo) * self.sz + self.yo2), new Color(255, 255, 255));
         } else {
-          self.setPixel(Math.round((self.x1 - self.xo) * self.sz), Math.round((self.y1 - self.yo) * self.sz), self.colors[idx]);
+          self.setPixel(Math.round((x - self.xo) * self.sz + self.xo2), Math.round((y - self.yo) * self.sz + self.yo2), self.colors[idx]);
         }
       } else if(self.counter == 5000) {
         var xs = self.xMax - self.xMin;
@@ -122,11 +123,13 @@ FractalImage.prototype.render = function (transforms) {
         self.xo2 = 0;
         self.yo2 = 0;
         if(xs >= ys) {
-          self.sz = 500 / xs;
-          self.yo2 = (500 - ys * self.sz) / 2
+          self.sz = 500 / (xs * (1 + self.margin/100));
+          self.yo2 = (500 - ys * self.sz) / 2;
+          self.xo = self.xo - xs * (self.margin/200);
         } else {
-          self.sz = 500 / ys;
-          self.xo2 = (500 - xs * self.sz) / 2
+          self.sz = 500 / (ys * (1 + self.margin/100));
+          self.xo2 = (500 - xs * self.sz) / 2;
+          self.yo = self.yo - ys * (self.margin/200);
         }
         console.log(self.xMax, self.xMin, self.yMax, self.yMin, xs, ys, self.sz);
       } else {
