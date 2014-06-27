@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Tranform</title>
   <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css"/>
+  <link rel="stylesheet" href="lib/ng-grid/ng-grid.min.css"/>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-controller="FractalsCtrl">
@@ -29,32 +30,21 @@
       </div>
     </div>
 
-    <table class="table table-bordered">
-      <tr>
-        <th class="color">&nbsp;</th>
-        <th>&nbsp;</th>
-        <th>A</th>
-        <th>B</th>
-        <th>C</th>
-        <th>D</th>
-        <th>E</th>
-        <th>F</th>
-      </tr>
-      <tr ng-repeat="t in transforms">
-        <td ng-style="getColor($index)">&nbsp;</td>
-        <td>T{{ $index+1 }}</td>
-        <td>{{ t.a }}</td>
-        <td>{{ t.b }}</td>
-        <td>{{ t.c }}</td>
-        <td>{{ t.d }}</td>
-        <td>{{ t.e }}</td>
-        <td>{{ t.f }}</td>
-      </tr>
-    </table>
+    <div class="gridStyle" ng-grid="gridOptions"></div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <button ng-click="addRow()">Add row</button>
+        <button ng-click="removeRow()">Remove Row</button>
+      </div>
+    </div>
   </div>
 </div>
 
+<script type="text/javascript" src="lib/jquery/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+<script type="text/javascript" src="lib/ng-grid/ng-grid-2.0.11.min.js"></script>
+<script type="text/javascript" src="lib/ng-grid/ng-grid-flexible-height.js"></script>
 
 <script type="text/javascript" src="js/fractal_image.js"></script>
 

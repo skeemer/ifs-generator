@@ -1,4 +1,4 @@
-var fractals = angular.module('fractals', []);
+var fractals = angular.module('fractals', ['ngGrid']);
 
 var Color = function (red, green, blue) {
   this.red = red;
